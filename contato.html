@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contato - Cleud Lopes</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!-- Para IE/Edge legacy, mas ajuda em compat. -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <!-- Melhora experiência em iOS como app web. -->
+    <link rel="apple-touch-icon" href="logo.png">
+    <!-- Ícone para iOS home screen. -->
+</head>
+
+<body>
+    <!-- Header -->
+    <header id="site-header">
+        <div class="nav-container">
+            <a href="index.html" class="txt">Cleud <span>Lopes</span></a>
+            <div class="hamburger" id="hamburger" aria-label="Abrir menu" role="button" tabindex="0">
+                <span class="bar"></span><span class="bar"></span><span class="bar"></span>
+            </div>
+
+            <ul class="nav-menu" id="nav-menu" role="menubar">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="sobre.html">Sobre</a></li>
+                <li><a href="musicas.html">Músicas</a></li>
+                <li><a href="fotos.html">Fotos</a></li>
+                <li><a href="agenda.html">Agenda</a></li>
+                <li><a href="contato.html">Contato</a></li>
+            </ul>
+        </div>
+    </header>
+
+    <section id="contato">
+        <div class="container">
+            <div class="section-title">
+                <h2>Solicite seu Orçamento</h2>
+                <p>Preencha os dados abaixo para contratar Cleud Lopes</p>
+            </div>
+
+            <div class="contato-container">
+                <div class="contato-form">
+                    <form id="contactForm">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="nome">Nome</label>
+                                <input type="text" id="nome" name="nome" class="form-control" required placeholder="Nome completo">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="email">Email</label>
+                                <input type="email" id="email" name="email" class="form-control" required placeholder="seu@email.com">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="telefone">Telefone</label>
+                                <input type="tel" id="telefone" name="telefone" class="form-control" required placeholder="(35) 99999-9999">
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="data_evento">Data</label>
+                                <input type="date" id="data_evento" name="data_evento" class="form-control" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="publico_estimado">Público</label>
+                                <input type="number" id="publico_estimado" name="publico_estimado" class="form-control" min="1" placeholder="Nº pessoas">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="local_evento">Local (opcional)</label>
+                            <input type="text" id="local_evento" name="local_evento" class="form-control" placeholder="Cidade / endereço breve">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="observacoes">Mensagem (opcional)</label>
+                            <textarea id="observacoes" name="observacoes" class="form-control" rows="3" placeholder="Detalhes rápidos"></textarea>
+                        </div>
+
+                        <button type="submit" class="btn" id="submitBtn">Solicitar Orçamento</button>
+
+                        <div class="message success" id="successMessage" style="display:none;">
+                            Pedido enviado! Retornamos em breve.
+                        </div>
+
+                        <div class="message error" id="errorMessage" style="display:none;">
+                            Erro ao enviar. Tente novamente.
+                        </div>
+                    </form>
+
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="section-divider" aria-hidden="true"></div>
+
+    <footer>
+        <div class="container">
+            <div class="footer-logo"><img src="logo.png" alt="Cleud Lopes" class="footer-logo-img" /></div>
+            <p class="copyright">&copy; 2025 Cleud Lopes. Todos os direitos reservados.</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+
+    <script>
+        (function() {
+            emailjs.init("z7XoJ4YglKhx8XBKF"); // Aqui vai sua Public Key real
+        })();
+
+        document.addEventListener("DOMContentLoaded", function() {
+            document.getElementById('contactForm').addEventListener('submit', async function(event) {
+                event.preventDefault(); // Impede reload
+
+                try {
+                    const response = await emailjs.sendForm('service_colvxpk', 'template_nb40dvo', this);
+                    console.log('Sucesso!', response);
+                    document.getElementById('successMessage').style.display = 'block';
+                    document.getElementById('errorMessage').style.display = 'none';
+                    this.reset(); // Limpa o form
+                } catch (error) {
+                    console.error('Erro:', error);
+                    document.getElementById('errorMessage').style.display = 'block';
+                    document.getElementById('successMessage').style.display = 'none';
+                }
+            });
+        });
+    </script>
+
+</body>
+
+</html>
